@@ -30,7 +30,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
 
         binding.tvDefault.setOnClickListener {
-//            supportFragmentManager.beginTransaction().add(R.id.cl_top, MainFragment()).commit()
             BaseDialog(
                 context = this,
                 layoutId = R.layout.dialog_base,
@@ -43,6 +42,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     showToast("취소 버튼 클릭")
                 }
             ).show(supportFragmentManager,"")
+
+            // fork 로컬 테스트
         }
     }
 
