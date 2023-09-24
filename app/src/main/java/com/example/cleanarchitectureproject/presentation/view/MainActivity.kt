@@ -43,7 +43,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             ).show(supportFragmentManager,"")
 
-            // fork 로컬 테스트
+            // MainAcitivity Changeed
+
         }
     }
 
