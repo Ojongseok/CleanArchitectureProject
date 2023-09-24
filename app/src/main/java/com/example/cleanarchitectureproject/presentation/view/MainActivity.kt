@@ -14,8 +14,11 @@ import com.example.cleanarchitectureproject.presentation.base.BaseActivity
 import com.example.cleanarchitectureproject.presentation.base.BaseDialog
 import com.example.cleanarchitectureproject.presentation.util.Extensions.repeatOnStarted
 import com.example.cleanarchitectureproject.presentation.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val viewmodel by viewModels<MainViewModel>()
 
@@ -50,7 +53,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun subscribeUi() {
         repeatOnStarted {
-            viewmodel.questionList.collect {
+            viewmodel.questionList.collectLatest {
                 Log.d("taag", it.toString())
             }
         }

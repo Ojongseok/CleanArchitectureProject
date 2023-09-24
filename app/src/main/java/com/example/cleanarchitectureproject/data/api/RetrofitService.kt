@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface RetrofitService {
     @GET("/api/v1/survey/questions")
-    fun getQuestions(): Response<TestResponse>
+    suspend fun getQuestions(): Response<TestResponse>
 
 }

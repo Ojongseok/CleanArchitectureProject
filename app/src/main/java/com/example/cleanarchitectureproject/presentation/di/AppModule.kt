@@ -28,7 +28,7 @@ abstract class RepositoryModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = ""
+    const val BASE_URL = "https://wantload.shop"
 
     @Singleton
     @Provides
