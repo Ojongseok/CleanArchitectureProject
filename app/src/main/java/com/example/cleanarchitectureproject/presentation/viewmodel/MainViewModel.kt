@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cleanarchitectureproject.data.model.TestResponse
 import com.example.cleanarchitectureproject.domain.repository.MainRepository
+import com.example.cleanarchitectureproject.domain.usecase.GetQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,14 +15,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val getQuestionsUseCase: GetQuestionsUseCase
 ): ViewModel() {
     private val _questionList = MutableStateFlow(TestResponse())
     val questionList = _questionList.asStateFlow()
 
     fun getQuestions() {
         viewModelScope.launch {
-            val response = mainRepository.getQuestions()
+            val response = getQuestionsUseCase.invoke()
 
             response.body()?.let {
                 _questionList.emit(it)
