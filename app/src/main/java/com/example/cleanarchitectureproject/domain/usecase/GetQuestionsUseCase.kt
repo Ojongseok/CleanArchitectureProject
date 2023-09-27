@@ -4,8 +4,10 @@ import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.data.model.TestResponse
 import com.example.cleanarchitectureproject.domain.model.ApiResult
 import com.example.cleanarchitectureproject.domain.repository.MainRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class GetQuestionsUseCase @Inject constructor(
@@ -18,10 +20,6 @@ class GetQuestionsUseCase @Inject constructor(
 
         val response = mainRepository.getQuestions()
 
-        when(response.body()?.isSuccess) {
-            true -> emit(ApiResult.Success(response.body()!!))
-            else -> emit(ApiResult.Error(0,"no"))
-        }
-
+        emit(response)
     }
 }

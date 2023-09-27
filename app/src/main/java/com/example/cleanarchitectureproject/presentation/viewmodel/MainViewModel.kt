@@ -23,19 +23,19 @@ class MainViewModel @Inject constructor(
 
     fun getQuestions(request: TestRequest) {
         viewModelScope.launch {
-            getQuestionsUseCase(request).collect {result ->
-                when(result) {
+            getQuestionsUseCase(request).collect { response ->
+                when(response) {
                     is ApiResult.Loading -> {
                         Log.d("taag", "로딩즁")
                     }
                     is ApiResult.Success -> {
-                        Log.d("taag", result.toString())
+                        Log.d("taag", response.toString())
                     }
                     is ApiResult.Error -> {
-                        Log.d("taag", result.toString())
+                        Log.d("taag", response.toString())
                     }
                     is ApiResult.Exception -> {
-                        Log.d("taag", result.toString())
+                        Log.d("taag", response.toString())
                     }
                 }
             }

@@ -14,4 +14,5 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
     }
+
 }

@@ -7,7 +7,6 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("/api/v1/articles")
-//    suspend fun getQuestions(): ApiResult<TestResponse>   // TODO 이건 왜 안되지
-    suspend fun getQuestions(): Response<TestResponse>
+    suspend fun getQuestions(): ApiResult<TestResponse>
 
 }

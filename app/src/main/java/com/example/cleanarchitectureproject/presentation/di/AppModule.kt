@@ -1,5 +1,6 @@
 package com.example.cleanarchitectureproject.presentation.di
 
+import com.example.cleanarchitectureproject.data.network.ApiResultCallAdapterFactory
 import com.example.cleanarchitectureproject.data.network.ApiService
 import com.example.cleanarchitectureproject.data.repositoryimpl.MainRepositoryImpl
 import com.example.cleanarchitectureproject.domain.repository.MainRepository
@@ -46,6 +47,7 @@ object AppModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
+            .addCallAdapterFactory(ApiResultCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

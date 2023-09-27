@@ -11,7 +11,3 @@ sealed class ApiResult<out T> {
     // 실패
     data class Exception(val error: Throwable) : ApiResult<Nothing>()
 }
-
-//fun <T> Result.onSuccess(action: (T) -> Unit): Result<T> {
-//    if (this is Result.Success)
-//}
