@@ -40,16 +40,7 @@ class MainViewModel @Inject constructor(
                 }
             }
 
-//            response.body()?.let {
-//                _questionList.emit(it)
-//            }
-//            Log.d("taag response", response.toString())
-//
-//            if (response == null) {
-//                Log.d("taag", "error")
-//            } else {
-//                Log.d("taag", "success")
-//            }
+
         }
     }
 }
