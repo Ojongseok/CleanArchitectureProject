@@ -9,6 +9,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cleanarchitectureproject.R
+import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.databinding.ActivityMainBinding
 import com.example.cleanarchitectureproject.presentation.base.BaseActivity
 import com.example.cleanarchitectureproject.presentation.base.BaseDialog
@@ -36,14 +37,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 title = "프로세스를 종료하시겠습니까?",
                 subTitle = "",
                 positive = {
-                    viewmodel.getQuestions()
+                    viewmodel.getQuestions(TestRequest("whdtjr6889@naver.com", "pass1234"))
                 },
                 negative = {
                     showToast("취소 버튼 클릭")
                 }
             ).show(supportFragmentManager,"")
-
-            // MainAcitivity Changeed
 
         }
     }
@@ -56,7 +55,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun subscribeUi() {
         repeatOnStarted {
             viewmodel.questionList.collectLatest {
-                Log.d("taag", it.toString())
             }
         }
     }

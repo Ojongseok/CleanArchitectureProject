@@ -1,14 +1,27 @@
 package com.example.cleanarchitectureproject.domain.usecase
 
+import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.data.model.TestResponse
+import com.example.cleanarchitectureproject.domain.model.ApiResult
 import com.example.cleanarchitectureproject.domain.repository.MainRepository
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetQuestionsUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
-    suspend operator fun invoke(): Response<TestResponse> {
-        return mainRepository.getQuestions()
+    suspend operator fun invoke(
+        request: TestRequest
+    ): Flow<ApiResult<TestResponse>> = flow {
+        emit(ApiResult.Loading)
+
+        val response = mainRepository.getQuestions()
+
+        when(response.body()?.isSuccess) {
+            true -> emit(ApiResult.Success(response.body()!!))
+            else -> emit(ApiResult.Error(0,"no"))
+        }
+
     }
 }

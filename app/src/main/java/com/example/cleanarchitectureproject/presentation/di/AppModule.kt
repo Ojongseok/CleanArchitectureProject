@@ -1,6 +1,6 @@
 package com.example.cleanarchitectureproject.presentation.di
 
-import com.example.cleanarchitectureproject.data.api.RetrofitService
+import com.example.cleanarchitectureproject.data.network.ApiService
 import com.example.cleanarchitectureproject.data.repositoryimpl.MainRepositoryImpl
 import com.example.cleanarchitectureproject.domain.repository.MainRepository
 import dagger.Binds
@@ -28,7 +28,7 @@ abstract class RepositoryModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = "https://wantload.shop"
+    const val BASE_URL = "https://kusitms.shop"
 
     @Singleton
     @Provides
@@ -52,7 +52,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideService(retrofit: Retrofit): RetrofitService {
-        return retrofit.create(RetrofitService::class.java)
+    fun provideService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }

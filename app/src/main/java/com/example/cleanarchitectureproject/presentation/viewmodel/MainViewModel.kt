@@ -3,13 +3,14 @@ package com.example.cleanarchitectureproject.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.data.model.TestResponse
-import com.example.cleanarchitectureproject.domain.repository.MainRepository
+import com.example.cleanarchitectureproject.domain.model.ApiResult
 import com.example.cleanarchitectureproject.domain.usecase.GetQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,14 +21,35 @@ class MainViewModel @Inject constructor(
     private val _questionList = MutableStateFlow(TestResponse())
     val questionList = _questionList.asStateFlow()
 
-    fun getQuestions() {
+    fun getQuestions(request: TestRequest) {
         viewModelScope.launch {
-            val response = getQuestionsUseCase.invoke()
-
-            response.body()?.let {
-                _questionList.emit(it)
+            getQuestionsUseCase(request).collect {result ->
+                when(result) {
+                    is ApiResult.Loading -> {
+                        Log.d("taag", "로딩즁")
+                    }
+                    is ApiResult.Success -> {
+                        Log.d("taag", result.toString())
+                    }
+                    is ApiResult.Error -> {
+                        Log.d("taag", result.toString())
+                    }
+                    is ApiResult.Exception -> {
+                        Log.d("taag", result.toString())
+                    }
+                }
             }
-            // MainViewModel Changeed
+
+//            response.body()?.let {
+//                _questionList.emit(it)
+//            }
+//            Log.d("taag response", response.toString())
+//
+//            if (response == null) {
+//                Log.d("taag", "error")
+//            } else {
+//                Log.d("taag", "success")
+//            }
         }
     }
 }
