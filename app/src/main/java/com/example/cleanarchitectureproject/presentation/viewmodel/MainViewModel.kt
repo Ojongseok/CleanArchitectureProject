@@ -18,23 +18,31 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getQuestionsUseCase: GetQuestionsUseCase
 ): ViewModel() {
-    private val _questionList = MutableStateFlow(TestResponse())
-    val questionList = _questionList.asStateFlow()
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
+    private val _testResponse = MutableStateFlow(TestResponse())
+    val testResponse = _testResponse.asStateFlow()
 
     fun getQuestions(request: TestRequest) {
         viewModelScope.launch {
             getQuestionsUseCase(request).collect { response ->
                 when(response) {
                     is ApiResult.Loading -> {
+                        _loading.value = true
                         Log.d("taag", "로딩즁")
                     }
                     is ApiResult.Success -> {
+                        _loading.value = false
+                        _testResponse.value = response.data
                         Log.d("taag", response.toString())
                     }
                     is ApiResult.Error -> {
+                        _loading.value = false
                         Log.d("taag", response.toString())
                     }
                     is ApiResult.Exception -> {
+                        _loading.value = false
                         Log.d("taag", response.toString())
                     }
                 }

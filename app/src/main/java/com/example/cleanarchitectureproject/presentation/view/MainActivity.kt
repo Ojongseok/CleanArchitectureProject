@@ -26,6 +26,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.viewmodel = viewmodel
+
         binding.root.setOnClickListener {
             hideKeyboard(binding.etDefault)
         }
@@ -54,7 +56,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun subscribeUi() {
         repeatOnStarted {
-            viewmodel.questionList.collectLatest {
+            viewmodel.loading.collect {
+
+            }
+            viewmodel.testResponse.collectLatest {
             }
         }
     }
