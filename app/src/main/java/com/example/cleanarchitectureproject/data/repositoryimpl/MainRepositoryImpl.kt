@@ -16,5 +16,4 @@ class MainRepositoryImpl @Inject constructor(
     override suspend fun getQuestions(): ApiResult<TestResponse> {
         return service.getQuestions()
     }
-
 }

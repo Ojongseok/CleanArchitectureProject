@@ -15,11 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--        <com.richpath.RichPathView-->
+<!--            android:id="@+id/richPathView"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:vector="@drawable/svg_map"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+
         <TextView
             android:id="@+id/tv_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="다이어로그"
+            android:text="터치"
             android:textSize="22sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,27 +37,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/et_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layout_marginTop="24dp"
-            android:hint="에딧텍스트"
-            app:layout_constraintEnd_toEndOf="@+id/tv_default"
-            app:layout_constraintStart_toStartOf="@+id/tv_default"
-            app:layout_constraintTop_toBottomOf="@+id/tv_default" />
+<!--        <EditText-->
+<!--            android:id="@+id/et_default"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:focusable="true"-->
+<!--            android:focusableInTouchMode="true"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:hint="에딧텍스트"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/tv_default"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/tv_default"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tv_default" />-->
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.loading ? View.VISIBLE : View.GONE}"
-            android:layout_marginTop="160dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.loading ? View.VISIBLE : View.GONE}"
+                    android:layout_marginTop="160dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_map"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

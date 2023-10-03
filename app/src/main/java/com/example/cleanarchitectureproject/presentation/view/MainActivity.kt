@@ -1,13 +1,8 @@
 package com.example.cleanarchitectureproject.presentation.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.example.cleanarchitectureproject.R
 import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.databinding.ActivityMainBinding
@@ -16,7 +11,6 @@ import com.example.cleanarchitectureproject.presentation.base.BaseDialog
 import com.example.cleanarchitectureproject.presentation.util.Extensions.repeatOnStarted
 import com.example.cleanarchitectureproject.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -28,15 +22,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         binding.viewmodel = viewmodel
 
-        binding.root.setOnClickListener {
-            hideKeyboard(binding.etDefault)
-        }
-
         binding.tvDefault.setOnClickListener {
             BaseDialog(
                 context = this,
                 layoutId = R.layout.dialog_base,
-                title = "프로세스를 종료하시겠습니까?",
+                title = "API 요청 보내기",
                 subTitle = "",
                 positive = {
                     viewmodel.getQuestions(TestRequest("whdtjr6889@naver.com", "pass1234"))
@@ -47,6 +37,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             ).show(supportFragmentManager,"")
 
         }
+
+//        val vector = VectorChildFinder(this, R.drawable.svg_map, binding.ivMap)
+//
+//        val seoul = vector.findPathByName("제주")
+//        val incheon = vector.findPathByName("인천")
+//        val jeonrado = vector.findPathByName("전라도")
+//
+//        seoul.fillColor = Color.RED
+//        incheon.fillColor = Color.GREEN
+//        jeonrado.fillColor = Color.BLUE
+//
+//        binding.ivMap.invalidate()
+//        binding.richPathView.findRichPathByName("seoul")?.setOnPathClickListener {
+//            Log.d("taag", "123")
+//        }
+
     }
 
     override fun initView() {
@@ -59,8 +65,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             viewmodel.loading.collect {
 
             }
+
             viewmodel.testResponse.collectLatest {
+
             }
+
         }
     }
 }

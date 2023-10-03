@@ -30,7 +30,7 @@ class MainViewModel @Inject constructor(
                 when(response) {
                     is ApiResult.Loading -> {
                         _loading.value = true
-                        Log.d("taag", "로딩즁")
+                        Log.d("taag", "로딩중")
                     }
                     is ApiResult.Success -> {
                         _loading.value = false
