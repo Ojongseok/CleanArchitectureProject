@@ -8,15 +8,41 @@ import java.lang.reflect.Type
 
 class ApiResultCallAdapterFactory : CallAdapter.Factory(){
     override fun get(returnType: Type, annotations: Array<out Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
-        if (Call::class.java != getRawType(returnType)) return null
-        check(returnType is ParameterizedType)
+        val rawType = getRawType(returnType)
 
-        val responseType = getParameterUpperBound(0, returnType)
-        if (getRawType(responseType) != ApiResult::class.java) return null
-        check(responseType is ParameterizedType)
+        if (returnType !is ParameterizedType) {
+            val name = parseTypeName(returnType)
+            throw IllegalArgumentException("Return type must be parameterized as " + "$name<Foo> or $name<out Foo>")
+        }
 
-        val successType = getParameterUpperBound(0, responseType)
+        return when (rawType) {
+            Call::class.java -> apiResultAdapter(returnType)
+            else -> null
+        }
+    }
 
-        return ApiResultCallAdapter<Any>(successType)
+    private fun apiResultAdapter(returnType: ParameterizedType): CallAdapter<Type, out Call<out Any>>? {
+        val wrapperType = getParameterUpperBound(0, returnType)
+        return when (getRawType(wrapperType)) {
+            ApiResult::class.java -> {
+                val bodyType = extractReturnType(wrapperType, returnType)
+                ApiResultCallAdapter(bodyType)
+            }
+
+            else -> null
+        }
+    }
+
+    @Suppress("NOTHING_TO_INLINE")
+    private inline fun extractReturnType(wrapperType: Type, returnType: ParameterizedType): Type {
+        if (wrapperType !is ParameterizedType) {
+            val name = parseTypeName(returnType)
+            throw IllegalArgumentException(
+                "Return type must be parameterized as $name<ResponseBody>"
+            )
+        }
+        return getParameterUpperBound(0, wrapperType)
     }
 }
+
+private fun parseTypeName(type: Type) = type.toString().split(".").last()
