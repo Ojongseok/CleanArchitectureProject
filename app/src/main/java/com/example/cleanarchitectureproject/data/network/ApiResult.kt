@@ -27,6 +27,16 @@ sealed interface ApiResult<out T> {
         throwOnSuccess()
         return this as Failure
     }
+
+    fun exceptionOrNull(): Throwable? =
+        when (this) {
+            is Failure -> safeThrowable()
+            else -> null
+        }
+
+    companion object {
+        fun <R> successOf(result: R): ApiResult<R> = Success(result)
+    }
 }
 
 internal fun ApiResult<*>.throwOnFailure() {
