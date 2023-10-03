@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.example.cleanarchitectureproject.R
 import com.example.cleanarchitectureproject.data.model.TestRequest
 import com.example.cleanarchitectureproject.data.network.ApiResult
+import com.example.cleanarchitectureproject.data.network.ApiService
 import com.example.cleanarchitectureproject.databinding.ActivityMainBinding
 import com.example.cleanarchitectureproject.presentation.base.BaseActivity
 import com.example.cleanarchitectureproject.presentation.base.BaseDialog
@@ -39,8 +40,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     showToast("취소 버튼 클릭")
                 }
             ).show(supportFragmentManager,"")
-
         }
+
+
     }
 
     override fun initView() {
