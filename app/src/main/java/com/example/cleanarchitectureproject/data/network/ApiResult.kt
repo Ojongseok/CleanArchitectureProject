@@ -1,4 +1,4 @@
-package com.example.cleanarchitectureproject.domain.model
+package com.example.cleanarchitectureproject.data.network
 
 sealed interface ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>

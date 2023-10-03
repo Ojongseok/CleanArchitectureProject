@@ -1,6 +1,5 @@
 package com.example.cleanarchitectureproject.data.network
 
-import com.example.cleanarchitectureproject.domain.model.ApiResult
 import retrofit2.Call
 import retrofit2.CallAdapter
 import java.lang.reflect.Type

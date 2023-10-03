@@ -1,6 +1,5 @@
 package com.example.cleanarchitectureproject.data.network
 
-import com.example.cleanarchitectureproject.domain.model.ApiResult
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call
