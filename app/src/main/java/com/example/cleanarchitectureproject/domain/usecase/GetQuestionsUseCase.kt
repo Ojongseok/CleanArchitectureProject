@@ -13,11 +13,7 @@ class GetQuestionsUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         request: TestRequest
-    ): Flow<ApiResult<TestResponse>> = flow {
-        emit(ApiResult.Loading)
-
-        val response = mainRepository.getQuestions()
-
-        emit(response)
+    ): ApiResult<TestResponse> {
+        return mainRepository.getQuestions()
     }
 }
