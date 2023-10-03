@@ -1,13 +1,52 @@
 package com.example.cleanarchitectureproject.domain.model
 
-sealed class ApiResult<out T> {
-    // 로딩중
-    object Loading : ApiResult<Nothing>()
+sealed interface ApiResult<out T> {
+    data class Success<T>(val data: T) : ApiResult<T>
 
-    // 성공적으로 수신한 경우
-    data class Success<T>(val data: T) : ApiResult<T>()
-    // 에러 메시지가 포함된 응답을 성공적으로 수신한 경우
-    data class Error(val code: Int, val message: String) : ApiResult<Nothing>()
-    // 실패
-    data class Exception(val error: Throwable) : ApiResult<Nothing>()
+    sealed interface Failure : ApiResult<Nothing> {
+        data class HttpError(val code: Int, val message: String, val body: String) : Failure
+        data class NetworkError(val throwable: Throwable) : Failure
+        data class UnknownApiError(val throwable: Throwable) : Failure
+
+        fun safeThrowable(): Throwable = when (this) {
+            is HttpError -> IllegalStateException("$message $body")
+            is NetworkError -> throwable
+            is UnknownApiError -> throwable
+        }
+    }
+
+    fun isSuccess(): Boolean = this is Success
+    fun isFailure(): Boolean = this is Failure
+
+    fun getOrThrow(): T {
+        throwOnFailure()
+        return (this as Success).data
+    }
+
+    fun failureOrThrow(): Failure {
+        throwOnSuccess()
+        return this as Failure
+    }
+}
+
+internal fun ApiResult<*>.throwOnFailure() {
+    if (this is ApiResult.Failure) throw safeThrowable()
+}
+
+internal fun ApiResult<*>.throwOnSuccess() {
+    if (this is ApiResult.Success) throw IllegalStateException("Cannot be called under Success conditions.")
+}
+
+inline fun <T> ApiResult<T>.onSuccess(
+    action: (value: T) -> Unit
+): ApiResult<T> {
+    if (isSuccess()) action(getOrThrow())
+    return this
+}
+
+inline fun <T> ApiResult<T>.onFailure(
+    action: (error: ApiResult.Failure) -> Unit
+): ApiResult<T> {
+    if (isFailure()) action(failureOrThrow())
+    return this
 }
