@@ -37,22 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             ).show(supportFragmentManager,"")
 
         }
-
-//        val vector = VectorChildFinder(this, R.drawable.svg_map, binding.ivMap)
-//
-//        val seoul = vector.findPathByName("제주")
-//        val incheon = vector.findPathByName("인천")
-//        val jeonrado = vector.findPathByName("전라도")
-//
-//        seoul.fillColor = Color.RED
-//        incheon.fillColor = Color.GREEN
-//        jeonrado.fillColor = Color.BLUE
-//
-//        binding.ivMap.invalidate()
-//        binding.richPathView.findRichPathByName("seoul")?.setOnPathClickListener {
-//            Log.d("taag", "123")
-//        }
-
     }
 
     override fun initView() {
